@@ -37,6 +37,12 @@ public class Point implements Geometry{
         Coordinate newcoord = new Coordinate(x+dx,y+dy);
         this.coordinate = newcoord;
     }
+
+    @Override
+    public Point clone(){
+        Coordinate coordcopy =  this.getCoordinate();
+        return new Point(coordcopy);
+    }
 }
 
 

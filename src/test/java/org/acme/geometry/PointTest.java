@@ -40,4 +40,17 @@ public class PointTest {
 		Assert.assertEquals(1.0, p.getCoordinate().getX(),EPSILON);
 		Assert.assertEquals(1.0, p.getCoordinate().getY(),EPSILON);
 	}
+
+	@Test
+	public void testClone(){
+		//TODO
+		Coordinate c = new Coordinate(0.0,0.0);
+		Point p = new Point(c);
+		Point copy = p.clone();
+		copy.translate(1.0, 1.0);
+		Assert.assertEquals(1.0, copy.getCoordinate().getX(),EPSILON);
+		Assert.assertEquals(1.0, copy.getCoordinate().getY(),EPSILON);
+		Assert.assertNotEquals(1.0, p.getCoordinate().getX(),EPSILON);
+		Assert.assertNotEquals(1.0, p.getCoordinate().getY(),EPSILON);
+	}
 }

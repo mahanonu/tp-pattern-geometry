@@ -2,6 +2,8 @@ package org.acme.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.Line;
+
 public class LineString implements Geometry{
 
     private List<Point> points;
@@ -42,5 +44,16 @@ public class LineString implements Geometry{
         for (int i=0;i<size;i++){
             this.getPointN(i).translate(dx, dy);
         }
+    }
+
+    @Override
+    public LineString clone(){
+        int size = this.getNumPoints();
+        ArrayList<Point> listcopy = new ArrayList<>();
+        for (int i=0;i<size;i++){
+            listcopy.add(this.getPointN(i).clone());
+        }
+
+        return new LineString(listcopy);
     }
 }
