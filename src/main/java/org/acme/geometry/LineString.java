@@ -33,10 +33,6 @@ public class LineString implements Geometry{
 
     @Override
     public boolean isEmpty(){
-        if (this.points.size() == 0){
-            return true;
-        } else {
-            return false;
-        }
+        return this.points.isEmpty();
     }
 }
