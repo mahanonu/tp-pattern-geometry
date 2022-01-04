@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.sound.sampled.Line;
 
-public class LineString implements Geometry{
+public class LineString extends AbstractGeometry{
 
     private List<Point> points;
+    private List<GeometryListener> listeners;
 
     public LineString(){
         this.points = new ArrayList<Point>();
+        this.listeners = new ArrayList<GeometryListener>();
     }
 
     public LineString(List<Point> points){
@@ -18,6 +20,7 @@ public class LineString implements Geometry{
         } else {
             this.points = points;
         }
+        this.listeners = new ArrayList<GeometryListener>();
     }
 
     public int getNumPoints(){
@@ -44,6 +47,7 @@ public class LineString implements Geometry{
         for (int i=0;i<size;i++){
             this.getPointN(i).translate(dx, dy);
         }
+        this.triggerChange();
     }
 
     @Override
@@ -69,5 +73,24 @@ public class LineString implements Geometry{
     @Override
     public void accept(GeometryVisitor visitor) {
         visitor.visit(this);        
+    }
+
+    @Override
+    public String asText() {
+        WktVisitor visitor = new WktVisitor();
+        visitor.visit(this);
+        return visitor.getResult();
+    }
+
+    @Override
+    public void addListener(GeometryListener listener) {
+        this.listeners.add(listener);
+    }
+
+    @Override
+    public void triggerChange() {
+        for (GeometryListener geometryListener : listeners) {
+            geometryListener.onChange(this);
+        }
     }
 }

@@ -62,4 +62,11 @@ public class PointTest {
 		Assert.assertEquals(1.0, e.getYmin(),EPSILON);
 		Assert.assertEquals(1.0, e.getYmax(),EPSILON);
 	}
+
+	@Test
+	public void tetAsText(){
+		//TODO
+		String result = p2.asText();
+		Assert.assertEquals("POINT(0.0 1.0)", result);
+	}
 }

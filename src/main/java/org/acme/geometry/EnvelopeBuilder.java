@@ -2,12 +2,12 @@ package org.acme.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnvelopeBuilder {
+public class EnvelopeBuilder implements GeometryVisitor{
     
     private List<Coordinate> coordinates;
 
     public EnvelopeBuilder(){
-        this.coordinates = new ArrayList<>();
+        this.coordinates = new ArrayList<>();   
     };
 
     public void insert(Coordinate coordinate){
@@ -35,5 +35,18 @@ public class EnvelopeBuilder {
             }
         }
         return new Envelope(new Coordinate(minX,minY),new Coordinate(maxX,maxY));
+    }
+
+    @Override
+    public void visit(Point point) {
+        this.insert(point.getCoordinate());        
+    }
+
+    @Override
+    public void visit(LineString lineString) {
+        int size = lineString.getNumPoints();
+        for (int i=0;i<size;i++){
+            this.insert(lineString.getPointN(i).getCoordinate());
+        }
     }
 }

@@ -1,11 +1,17 @@
 package org.acme.geometry;
 
-public class Point implements Geometry{
+import java.util.ArrayList;
+import java.util.List;
+
+public class Point extends AbstractGeometry{
 
     private Coordinate coordinate;
+    private List<GeometryListener> listeners;
+
 
     public Point(){
         this.coordinate = new Coordinate();
+        this.listeners = new ArrayList<GeometryListener>();
     }
 
     public Point(Coordinate coordinate){
@@ -14,6 +20,7 @@ public class Point implements Geometry{
         } else {
             this.coordinate = coordinate;
         }
+        this.listeners = new ArrayList<GeometryListener>();
     }
     
     public Coordinate getCoordinate(){
@@ -36,7 +43,9 @@ public class Point implements Geometry{
         double y = this.coordinate.getY();
         Coordinate newcoord = new Coordinate(x+dx,y+dy);
         this.coordinate = newcoord;
+        this.triggerChange();
     }
+    
 
     @Override
     public Point clone(){
@@ -54,6 +63,25 @@ public class Point implements Geometry{
     @Override
     public void accept(GeometryVisitor visitor) {
         visitor.visit(this);        
+    }
+
+    @Override
+    public String asText() {
+        WktVisitor visitor = new WktVisitor();
+        visitor.visit(this);
+        return visitor.getResult();
+    }
+
+    @Override
+    public void addListener(GeometryListener listener) {
+        this.listeners.add(listener);
+    }
+
+    @Override
+    public void triggerChange() {
+        for (GeometryListener geometryListener : listeners) {
+            geometryListener.onChange(this);
+        }
     }
 }
 

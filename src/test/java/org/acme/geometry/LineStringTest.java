@@ -83,6 +83,18 @@ public class LineStringTest {
 		Assert.assertEquals(3.0, e.getYmax(),EPSILON);
     }
 
+    @Test
+	public void tetAsText(){
+		//TODO
+        Point p1 = new Point(new Coordinate(0.0,1.0));
+        Point p2 = new Point(new Coordinate(2.0,3.0));
+        ArrayList<Point> al = new ArrayList<>();
+        al.add(p1);
+        al.add(p2);
+		LineString l = new LineString(al);
+		String result = l.asText();
+		Assert.assertEquals("LINESTRING(0.0 1.0,2.0 3.0)", result);
+	}
 }
 
 
