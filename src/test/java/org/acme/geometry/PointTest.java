@@ -6,29 +6,28 @@ import org.junit.Test;
 public class PointTest {
     
     public static final double EPSILON = 1.0e-15;
+	public static Coordinate c = new Coordinate(0.0,1.0);
+	public static Point p1 = new Point();
+	public static Point p2 = new Point(c);
 
     @Test
 	public void testDefaultConstructor(){
 		// TODO
-		Point p = new Point();
-		Assert.assertEquals(Double.NaN, p.getCoordinate().getX(),EPSILON);
-		Assert.assertEquals(Double.NaN, p.getCoordinate().getY(),EPSILON);
+		Assert.assertEquals(Double.NaN, p1.getCoordinate().getX(),EPSILON);
+		Assert.assertEquals(Double.NaN, p1.getCoordinate().getY(),EPSILON);
 	}
 
     @Test
 	public void testConstructor(){
 		// TODO
-        Coordinate c = new Coordinate(0.0,1.0);
-		Point p = new Point(c);
-		Assert.assertEquals(0.0, p.getCoordinate().getX(),EPSILON);
-		Assert.assertEquals(1.0, p.getCoordinate().getY(),EPSILON);
+		Assert.assertEquals(0.0, p2.getCoordinate().getX(),EPSILON);
+		Assert.assertEquals(1.0, p2.getCoordinate().getY(),EPSILON);
 	}
 
     @Test
 	public void testIsEmpty(){
 		// TODO
-		Point p = new Point();
-		Assert.assertEquals(true, p.isEmpty());
+		Assert.assertEquals(true, p1.isEmpty());
 	}
 
 	@Test
@@ -52,5 +51,15 @@ public class PointTest {
 		Assert.assertEquals(2.0, copy.getCoordinate().getY(),EPSILON);
 		Assert.assertNotEquals(1.0, p.getCoordinate().getX(),EPSILON);
 		Assert.assertNotEquals(2.0, p.getCoordinate().getY(),EPSILON);
+	}
+
+	@Test
+	public void testGetEnvelope(){
+		//TODO
+		Envelope e = p2.getEnvelope();
+		Assert.assertEquals(0.0, e.getXmin(),EPSILON);
+		Assert.assertEquals(0.0, e.getXmax(),EPSILON);
+		Assert.assertEquals(1.0, e.getYmin(),EPSILON);
+		Assert.assertEquals(1.0, e.getYmax(),EPSILON);
 	}
 }

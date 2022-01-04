@@ -43,6 +43,13 @@ public class Point implements Geometry{
         Coordinate coordcopy =  this.getCoordinate();
         return new Point(coordcopy);
     }
+    
+    @Override
+    public Envelope getEnvelope(){
+        EnvelopeBuilder builder = new EnvelopeBuilder();
+        builder.insert(coordinate);
+        return builder.build();
+    }
 }
 
 

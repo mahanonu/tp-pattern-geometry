@@ -19,8 +19,8 @@ public class LineStringTest {
     @Test
 	public void testConstructor(){
 		// TODO
-        Point p1 = new Point(new Coordinate(0.0,0.0));
-        Point p2 = new Point(new Coordinate(1.0,1.0));
+        Point p1 = new Point(new Coordinate(0.0,1.0));
+        Point p2 = new Point(new Coordinate(2.0,3.0));
         ArrayList<Point> al = new ArrayList<>();
         al.add(p1);
         al.add(p2);
@@ -68,6 +68,20 @@ public class LineStringTest {
         Assert.assertNotEquals(4.0, l.getPointN(1).getCoordinate().getY(),EPSILON);
     }
 
+    @Test
+    public void testGetEnvelope(){
+        Point p1 = new Point(new Coordinate(0.0,1.0));
+        Point p2 = new Point(new Coordinate(2.0,3.0));
+        ArrayList<Point> al = new ArrayList<>();
+        al.add(p1);
+        al.add(p2);
+		LineString l = new LineString(al);
+        Envelope e = l.getEnvelope();
+        Assert.assertEquals(0.0, e.getXmin(),EPSILON);
+		Assert.assertEquals(2.0, e.getXmax(),EPSILON);
+		Assert.assertEquals(1.0, e.getYmin(),EPSILON);
+		Assert.assertEquals(3.0, e.getYmax(),EPSILON);
+    }
 
 }
 
