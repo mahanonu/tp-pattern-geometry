@@ -32,6 +32,7 @@ public class GeometryWithCachedEnvelopeTest {
         al.add(p2);
 		Geometry l = new LineString(al);
         l = new GeometryWithCachedEnvelope(l);
+        Envelope e1 = l.getEnvelope();
         l.translate(1.0, 1.0);
         Assert.assertEquals(1.0, l.getEnvelope().getXmin(),EPSILON);
         Assert.assertEquals(3.0, l.getEnvelope().getXmax(),EPSILON);

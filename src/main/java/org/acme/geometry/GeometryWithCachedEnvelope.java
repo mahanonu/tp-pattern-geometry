@@ -8,6 +8,7 @@ public class GeometryWithCachedEnvelope implements Geometry,GeometryListener {
     public GeometryWithCachedEnvelope(Geometry original){
         this.original = original;
         this.cachedEnvelope = new Envelope();
+        this.original.addListener(this);
     }
 
     @Override
@@ -48,7 +49,6 @@ public class GeometryWithCachedEnvelope implements Geometry,GeometryListener {
     @Override
     public void onChange(Geometry geometry) {
         this.cachedEnvelope = geometry.getEnvelope();
-        this.original = geometry;
     }
 
     @Override
