@@ -18,9 +18,9 @@ public class CoordinateTest {
 	@Test
 	public void testConstructor(){
 		// TODO
-		Coordinate c = new Coordinate(0.0,0.0);
+		Coordinate c = new Coordinate(0.0,1.0);
 		Assert.assertEquals(0.0, c.getX(), EPSILON);
-		Assert.assertEquals(0.0, c.getY(), EPSILON);
+		Assert.assertEquals(1.0, c.getY(), EPSILON);
 	}
 
 	@Test
